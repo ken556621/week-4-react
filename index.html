@@ -12,171 +12,113 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="text/babel">
+<script type="text/babel">
 
+class ChangeWord extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isClickOn: true
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
 
-      class ChangeWord extends React.Component {
+  handleClick() {
+    this.setState(prevState => ({
+      isClickOn: false
+    }));
+  }
 
-        constructor(props) {
-          super(props);
-          this.state = { isToggleOn: true }
-          this.changeWord = this.changeWord.bind(this);
-        }
+  render() {
+    return (
+      <section className="showcase">
+        <div className="container">
+            <h2 onClick={this.handleClick}>{this.state.isClickOn ? 'Hello World' : 'Have a good time!'}</h2>
+        </div>
+      </section>
+    );
+  }
+}
 
-        componentDidMount() {
-          document.addEventListener('click', this.changeWord);
-        }
-        componentWillUnmount() {
-          document.removeEventListener('click', this.changeWord);
-        }
+class SideMenu extends React.Component {
 
-        changeWord(event) {
-          if(event.target.classList.contains('message')){
-            event.target.innerHTML = "Have a good time!"
-          }
-        }
+  constructor(props) {
+    super(props);
+    this.state = { 
+      isToggleOn: true 
+    }
+    this.sideMenu = this.sideMenu.bind(this);
+  }
 
-        render() { 
-          return ( 
-            <Showcase />
-            );
-        }
-      }
+  sideMenu() {
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn
+    }))
+  }
 
-      class SideMenu extends React.Component {
-
-        constructor(props) {
-          super(props);
-          this.state = { isToggleOn: true }
-          this.sideMenu = this.sideMenu.bind(this);
-        }
-
-        componentDidMount() {
-          document.addEventListener('click', this.sideMenu);
-        }
-        componentWillUnmount() {
-          document.removeEventListener('click', this.sideMenu);
-        }
-
-        sideMenu(event) {
-          if(event.target.classList.contains('menu-burger')){
-            document.querySelector('.side-menu').style.right = '0px'
-          }
-          if(event.target.classList.contains('delete-icon')){
-            document.querySelector('.side-menu').style.right = '-180px'
-          }
-        }
-
-        render() { 
-          return ( 
-            <Header />
-            );
-        }
-        }
-
-        class MoreBox extends React.Component {
-
-          constructor(props) {
-            super(props);
-            this.state = { isToggleOn: true }
-            this.MoreBox = this.MoreBox.bind(this);
-          }
-
-          componentDidMount() {
-            document.addEventListener('click', this.MoreBox);
-          }
-          componentWillUnmount() {
-            document.removeEventListener('click', this.MoreBox);
-          }
-
-          MoreBox(event) {
-            if(event.target.classList.contains('btn')){
-              document.querySelector('.wrapper-box-2').style.display = 'flex'
-            }
-          }
-
-          render() { 
-            return ( 
-              <Intro />
-              );
-          }
-          }
- 
-
-      const Header = () => {
-        return(
-          <header>
-            <nav>
-                <div className="wrapper-menu">
-                    <div className="logo">
-                        <h3>Website Title/Logo</h3>
-                    </div>
-                    <div className="menu-burger">
-                        <span className="line"></span>
-                        <span className="line"></span>
-                        <span className="line"></span>
-                    </div>
-                    <div className="menu">
-                        <ul className="menu">
-                            <li>Item 1</li>
-                            <li>Item 2</li>
-                            <li>Item 3</li>
-                            <li>Item 4</li>
-                        </ul>
-                    </div>
-                    <div className="side-menu">
-                        <div className="delete-icon">
-                            X
-                        </div>
-                        <ul>
-                            <li>Item 1</li>
-                            <li>Item 2</li>
-                            <li>Item 3</li>
-                            <li>Item 4</li>
-                        </ul>
-                    </div>
+  render() { 
+    return ( 
+      <header>
+        <nav>
+            <div className="wrapper-menu">
+                <div className="logo">
+                    <h3>Website Title/Logo</h3>
                 </div>
-            </nav>
-        </header>
-        )
-      }
+                <div className="menu-burger" onClick={this.sideMenu}>
+                    <span className="line"></span>
+                    <span className="line"></span>
+                    <span className="line"></span>
+                </div>
+                <div className="menu">
+                    <ul className="menu">
+                        <li>Item 1</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                        <li>Item 4</li>
+                    </ul>
+                </div>
+                <div className={this.state.isToggleOn ? "side-menu-hide" : "side-menu-show"}>
+                    <div className="delete-icon" onClick={this.sideMenu}>
+                        X
+                    </div>
+                    <ul>
+                        <li>Item 1</li>
+                        <li>Item 2</li>
+                        <li>Item 3</li>
+                        <li>Item 4</li>
+                    </ul>
+                </div>
+            </div>
+          </nav>
+      </header>
+      );
+  }
+}
 
-      const Showcase = () => {
-        return(
-          <section className="showcase">
-              <div className="container">
-                  <h2 className="message">Welcome Message</h2>
-              </div>
-          </section>
-        )
-      }
+class MoreBox extends React.Component {
 
-      const Intro = () => {
-        return(
-          <section className="intro">
-              <div className="container">
-                  <h3>
-                      Section Title
-                  </h3>
-                  <div className="wrapper-box">
-                      <div className="box">
-                          Content Box 1
-                      </div>
-                      <div className="box">
-                          Content Box 2
-                      </div>
-                      <div className="box">
-                          Content Box 3
-                      </div>
-                      <div className="box">
-                          Content Box 4
-                      </div>
-                  </div>
-              </div>
-              <div className="btn">
-                  Call to Action
-              </div>
-              <div className="wrapper-box-2">
+  constructor(props) {
+    super(props);
+    this.state = { 
+      isClickOn: true 
+    }
+    this.moreBox = this.moreBox.bind(this);
+  }
+
+  moreBox() {
+    this.setState(prevState => ({
+      isClickOn: false
+    }))
+  }
+
+  render() { 
+    return ( 
+      <section className="intro">
+        <div className="container">
+            <h3>
+                Section Title
+            </h3>
+            <div className="wrapper-box">
                 <div className="box">
                     Content Box 1
                 </div>
@@ -189,48 +131,45 @@
                 <div className="box">
                     Content Box 4
                 </div>
-              </div>
-          </section>
-        )
-      }
-
-      const App = () => {
-        return(
-          <div>
-            <SideMenu />
-            <ChangeWord />
-            <MoreBox />
+            </div>
+        </div>
+        <div className="btn" onClick={this.moreBox}>
+            Call to Action
+        </div>
+        <div className={this.state.isClickOn ? "wrapper-box-2-hide" : "wrapper-box-2-show"}>
+          <div className="box">
+              Content Box 1
           </div>
-        )
-      }
-
-
-      ReactDOM.render(
-        <App />,
-        document.getElementById('root')
+          <div className="box">
+              Content Box 2
+          </div>
+          <div className="box">
+              Content Box 3
+          </div>
+          <div className="box">
+              Content Box 4
+          </div>
+        </div>
+      </section>
       );
-      
+  }
+}
 
-    </script>
+const App = () => {
+  return(
+    <div>
+      <SideMenu />
+      <ChangeWord />
+      <MoreBox />
+    </div>
+  )
+}
 
 
-
-
-
-
-
-    <!--
-      Note: this page is a great way to try React but it's not suitable for production.
-      It slowly compiles JSX with Babel in the browser and uses a large development build of React.
-
-      Read this section for a production-ready setup with JSX:
-      https://reactjs.org/docs/add-react-to-a-website.html#add-jsx-to-a-project
-
-      In a larger project, you can use an integrated toolchain that includes JSX instead:
-      https://reactjs.org/docs/create-a-new-react-app.html
-
-      You can also use React without JSX, in which case you can remove Babel:
-      https://reactjs.org/docs/react-without-jsx.html
-    -->
+ReactDOM.render(
+  <App />,
+  document.getElementById('root')
+);
+</script>
   </body>
 </html>

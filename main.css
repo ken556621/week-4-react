@@ -52,9 +52,16 @@ nav{
     margin: 0 20px;
 }
 
-.side-menu{
+.side-menu-hide{
     position: fixed;
     right: -180px;
+    background-color: #fff;
+    height: 100%;
+}
+
+.side-menu-show{
+    position: fixed;
+    right: 0px;
     background-color: #fff;
     height: 100%;
 }
@@ -66,11 +73,11 @@ nav{
     font-size: 30px;
 }
 
-.side-menu ul{
+.side-menu-hide ul, .side-menu-show ul{
     padding: 50px;
 }
 
-.side-menu ul li{
+.side-menu-hide ul li, .side-menu-show ul li{
     margin-bottom: 40px;
     font-size: 20px;
 }
@@ -114,8 +121,16 @@ nav{
     width: 100%;
 }
 
-.wrapper-box-2{
+.wrapper-box-2-hide{
     display: none;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: 5px;
+    width: 100%;
+}
+
+.wrapper-box-2-show{
+    display: flex;
     flex-flow: row wrap;
     justify-content: center;
     margin: 5px;
